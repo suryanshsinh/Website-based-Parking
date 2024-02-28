@@ -6,6 +6,7 @@
         $s4 = $_POST['s4'];
         $s5 = $_POST['s5'];
         $s6 = $_POST['s6'];
+        $s6 = str_replace("\r", "", $s6);
 
         $values = array(
             "s1" => "$s1",
