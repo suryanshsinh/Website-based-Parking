@@ -68,20 +68,30 @@ function paintSlots() {
     for (let i = 1; i < 7; i++) {
         if (slots["s" + i]["status"] === "1") {
             document.getElementById("s" + i).style.backgroundImage = `url("/assets/${ i > 4 ? i%4 : i}.png")`;
-                        // Calculate hours and minutes left till the slot expires
-            let currentHours = time[0];
-            let currentMinutes = time[1];
-            let bookedHours = slots["s" + i]["time"][0];
-            let bookedMinutes = slots["s" + i]["time"][1];
-            let bookedDurationHours = parseInt(slots["s" + i]["hours"]);
-            let bookedDurationMinutes = parseInt(slots["s" + i]["minutes"]);
-
-            let hoursLeft = bookedDurationHours - (currentHours - bookedHours);
-            let minutesLeft = bookedDurationMinutes - (currentMinutes - bookedMinutes);
-
-            // let h = parseInt(slots["s" + i]["hours"]) + parseInt(slots["s" + i]["time"][0]) - time[0];
-            // let m = parseInt(slots["s" + i]["minutes"]) + parseInt(slots["s" + i]["time"][1]) - time[1];            
-            document.getElementById("s" + i).innerHTML = `<button class="reserve-button bg-red">Reserved for ${ hoursLeft + "H " + minutesLeft }M</button>`;
+            let hoursLeft = slots["s" + i]["hour"] - time[0];
+            let minutesLeft = slots["s" + i]["minute"] - time[1];
+            if (minutesLeft < 0) {
+                minutesLeft += 60;
+                hoursLeft--;
+            }
+            if (hoursLeft === 0 && minutesLeft === 0) {
+                slots["s" + i]["status"] = "0";
+                slots["s" + i]["name"] = "s" + i;
+                slots["s" + i]["plate"] = "0";
+                slots["s" + i]["time"] = "0";
+                slots["s" + i]["hours"] = "0";
+                slots["s" + i]["minutes"] = "0";
+            }
+            document.getElementById("s" + i).innerHTML = `<button class="reserve-button bg-red" onclick="displayUser(${i})">Reserved for ${ hoursLeft + "H:" + minutesLeft + "M"}</button>`;
+            document.getElementById("s" + i).addEventListener("mouseover", function() {
+                if (slots["s" + i]["status"] === "1") {
+                    document.querySelector(".displayUser").style.display = "flex";
+                    document.querySelector(".displayUser").innerHTML = slots["s" + i]["name"] + '<br>' + slots["s" + i]["plate"];
+                }
+            });
+            document.getElementById("s" + i).addEventListener("mouseout", function() {
+                document.querySelector(".displayUser").style.display = "none";
+            });
         }
         else {
             document.getElementById("s" + i).style.backgroundImage = 'none';
@@ -103,13 +113,18 @@ function submit() {
         status: "1",
         name: name.value,
         plate: plate.value,
-        hours: hours.value,
-        minutes: minutes.value,
+        hour: parseInt(hours.value) + date.getHours() + ((parseInt(minutes.value) + date.getMinutes() > 60) ? 1 : 0),
+        minute: parseInt(minutes.value) + date.getMinutes() - ((parseInt(minutes.value) + date.getMinutes() > 60) ? 60 : 0),
         time: [date.getHours(), date.getMinutes()]
     }
     document.querySelector(".popup").style.display = 'none';
     document.querySelector(".payment").style.display = 'flex';
-    document.getElementById("amount").innerHTML = (parseInt(hours.value)*30) + ((parseInt(minutes.value) > 30) ? 15 : 0);
+    if (parseInt(hours.value) > 0) {
+        document.getElementById("amount").innerHTML = (parseInt(hours.value)*30) + ((parseInt(minutes.value) > 30) ? 15 : 0);
+    }
+    else {
+        document.getElementById("amount").innerHTML = 15;
+    }
     name.value = "";
     plate.value = "";
     hours.value = "";

@@ -103,6 +103,9 @@ section {
     padding-right: 1px;
     border-bottom: 5px solid #134644;
     background-color: #aaa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .temp:first-child {
     border-bottom-left-radius: 13px;
@@ -234,6 +237,15 @@ section {
     color: white;
     font-weight: normal;
     transition: all ease-in-out .2s;
+}
+
+.displayUser {
+    display: none;
+    background-color: #134644;
+    color: #80ef90;
+    font-size: 15px;
+    padding: 5px 10px;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 850px) {
