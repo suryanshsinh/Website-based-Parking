@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../reserve/styles.css" rel="stylesheet">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header class="nav-bar">
+        <h1 class="page-title">Website-based Parking</h1>
+    </header>
+    <div class="overlay">
+        <div class="popup">
+            <h1 id="reserve-slot-heading">Reserve Slot: 1</h1>
+            <div class="form" id="reserveForm">
+                <input type="text" name="name" id="name" placeholder="Name" required class="text-box">
+                <input type="text" name="plate" id="plate" placeholder="Plate Number" required class="text-box">
+                <input type="text" name="hours" id="hours" placeholder="Hours" required class="text-box">
+                <input type="text" name="minutes" id="minutes" placeholder="Minutes" required class="text-box">
+                <input onclick="submit()" type="button" value="Proceed to Pay" class="submit-form">
+            </div>
+            <button onclick="closePopup()" class="close-form">Close</button>
+        </div>
+        <div class="payment">
+            <h1 id="payment-heading">Payment</h1>
+            <img src="/assets/qr.jpg" alt="" class="qr">
+            <p>Please pay ₹<span id="amount"></span> to the above mentioned UPI ID to confirm the reservation.</p>
+            <input onclick="pay()" type="button" value="Pay" class="submit-form">
+            <button onclick="closePopup()" class="close-form">Cancel</button>
+        </div>
+    </div>
+    <section>
+        <div class="container">
+            <div class="slots">
+                <div class="slot" id="s1"></div>
+                <div class="slot" id="s2"></div>
+                <div class="slot" id="s3"></div>
+                <div class="slot" id="s4"></div>
+                <div class="slot" id="s5"></div>
+                <div class="slot" id="s6"></div>
+            </div>
+            <div class="space">
+                <div class="temp"></div>
+                <div class="temp"></div>
+                <div class="temp"></div>
+            </div>
+            <div class="toll">
+                <div class="grass"></div>
+                <div class="road"></div>
+                <div class="grass"></div>
+            </div>
+        </div>
+    </section>
+    <script src="../reserve/scripts.js"></script>
+</body>
+</html>
