@@ -17,7 +17,7 @@
             "s6" => "$s6",
         );
 
-        $slots = fopen('slots.json', 'w');
+        $slots = fopen('./slots.json', 'w');
         fwrite($slots, json_encode($values));
         fclose($slots);
     }

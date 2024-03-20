@@ -67,7 +67,7 @@ function paintSlots() {
     let time = [date.getHours(), date.getMinutes()];
     for (let i = 1; i < 7; i++) {
         if (slots["s" + i]["status"] === "1") {
-            document.getElementById("s" + i).style.backgroundImage = `url("/assets/${ i > 4 ? i%4 : i}.png")`;
+            document.getElementById("s" + i).style.backgroundImage = `url("../assets/${ i > 4 ? i%4 : i}.png")`;
             let hoursLeft = slots["s" + i]["hour"] - time[0];
             let minutesLeft = slots["s" + i]["minute"] - time[1];
             if (minutesLeft < 0) {
